@@ -23,6 +23,5 @@ class PostApi(ApiClient):
         return self.get(url)
 
     def add_post(self, post: PostModel) -> Optional[Response]:
-        # url = self.url + ''
-        # return self.get(url, params={'id': user_id})
-        ...
+        url = self.url + '/users/1/posts'
+        return self.post(url, json=post.dict)
