@@ -1,6 +1,8 @@
 import json
-from typing import Any, List
+from typing import Any
 from dataclasses import dataclass
+
+import factory
 
 
 @dataclass
@@ -70,7 +72,6 @@ class UserModel(ObjectDict):
         return UserModel(**obj)
 
 
-UserList = List[UserModel]
 # ------------------------------- Post -------------------------------
 
 
@@ -86,4 +87,11 @@ class PostModel(ObjectDict):
         return PostModel(**obj)
 
 
-# PostList = List[PostModel]
+class PostFactory(factory.Factory):
+    class Meta:
+        model = PostModel
+
+    id = None
+    userId = 0
+    title = factory.Faker('text')
+    body = factory.Faker('text')
