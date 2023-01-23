@@ -1,6 +1,7 @@
 from .api import UsersApi
 from .api import models
-from .api.models import UserModel, PostModel
+from .api.models import PostFactory
+from .api import UserModel, PostModel, RestClient
 
 
 __all__ = [
@@ -8,4 +9,6 @@ __all__ = [
     'UsersApi',
     'UserModel',
     'PostModel',
+    'PostFactory',
+    'RestClient'
 ]

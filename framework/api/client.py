@@ -1,8 +1,18 @@
-import logging
 from typing import Callable, Optional, List, Dict
-from . import Session, Response
+from framework.api import Session, Response
+from loguru import logger
 
-logger = logging.getLogger(__name__)
+from json.decoder import JSONDecodeError
+
+
+def log_request(response, *args, **kwargs):
+    _data = ''
+    try:
+        _data = response.json()
+    except JSONDecodeError as e:
+        logger.exception(e)
+
+    logger.info(f'Api Request: method={response.request.method}, args={args}, kwargs={kwargs}, response={_data}')
 
 
 class ApiClient:
@@ -10,6 +20,8 @@ class ApiClient:
                  headers: Optional[Dict] = None):
         self.url = url
         self.session = session
+        self.session.hooks['response'] = [log_request]
+
         if hooks:
             self.session.hooks['response'].extend(hooks)
         if headers:
@@ -40,3 +52,4 @@ class ApiClient:
 
     def patch(self, *args, **kwargs) -> Response:
         return self._call('PATCH', *args, **kwargs)
+

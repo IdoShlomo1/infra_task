@@ -1,6 +1,6 @@
 from requests import Session, Response
-from .apis import UsersApi
-from .models import UserModel, PostModel, UserList
+from .apis import UsersApi, RestClient
+from .models import UserModel, PostModel, PostFactory
 
 __all__ = [
     'Session',
@@ -8,5 +8,6 @@ __all__ = [
     'UsersApi',
     'UserModel',
     'PostModel',
-    'UserList',
+    'RestClient',
+    'PostFactory'
 ]
